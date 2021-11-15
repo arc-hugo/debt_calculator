@@ -98,4 +98,19 @@ let from_file path =
   
   close_in infile ;
   final_graph
+let export path graph =
+
+  (* Open a write-file. *)
+  let ff = open_out path in
+
+  (* Write in this file. *)
+  fprintf ff "digraph diagram_out{\n   rankdir=LR;\n   size=\"8,5\"\n   node [shape = circle];\n   " ;
+
+  (* Write all arcs *)
+  e_iter graph (fun id1 id2 lbl -> fprintf ff "%d -> %d [label = \"%s\"];\n   " id1 id2 lbl) ;
+  
+  fprintf ff "\n}" ;
+  
+  close_out ff ;
+  ()
   
