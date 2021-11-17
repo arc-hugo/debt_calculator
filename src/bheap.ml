@@ -23,5 +23,5 @@ let add (bt: 'a bheap) (v: 'a) = let (t * cmp) = bt in
    ((merge t (leaf v) cmp) * cmp)
 
 let extract_root (bt: 'a bheap) = match bt with
-   | None, _ -> Heap_exception "empty heap"
+   | None, _ -> raise Heap_exception "empty heap"
    | Some(l, v, r, _), cmp -> (v * (merge l r cmp))
