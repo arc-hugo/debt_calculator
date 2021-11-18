@@ -1,0 +1,10 @@
+opam-version: "2.0"
+version: "0.1"
+maintainer: ["Hugo Barral <barral@insa-toulouse.fr" "Aubry Dubois"]
+authors: ["Hugo Barral <barral@insa-toulouse.fr>" "Aubry Dubois"]
+homepage: "https://github.com/arc-hugo/ocaml_graph_project/"
+bug-reports: "https://github.com/arc-hugo/ocaml_graph_project/issues"
+dev-repo: "git+https://github.com/arc-hugo/ocaml_graph_project.git"
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]
