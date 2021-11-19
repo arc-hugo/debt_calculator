@@ -1,0 +1,3 @@
+(library
+	(name ford)
+	(libraries tools graph))
