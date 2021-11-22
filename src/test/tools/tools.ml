@@ -14,6 +14,7 @@ let test_clone () =
    assert (node_exists cgr 0);
    assert (node_exists cgr 1);
    assert (node_exists cgr 2);
+   (* assert no arcs *)
    assert ((out_arcs cgr 0) = []);
    assert ((out_arcs cgr 1) = []);
    assert ((out_arcs cgr 2) = []);
@@ -23,12 +24,13 @@ let test_clone () =
 
 let test_gmap () =
    Printf.printf "   - test gmap";
-   (* test of clone_nodes function *)
+   (* test of gmap function *)
    let cgr = gmap graph (fun v -> v*2) in
    (* assert same set of nodes *)
    assert (node_exists cgr 0);
    assert (node_exists cgr 1);
    assert (node_exists cgr 2);
+   (* assert new arc values *)
    assert ((out_arcs cgr 0) = [(1,10)]);
    assert ((out_arcs cgr 1) = [(2,20)]);
    assert ((out_arcs cgr 2) = []);
@@ -38,12 +40,13 @@ let test_gmap () =
 
 let test_add_arc () =
    Printf.printf "   - test add_arc";
-   (* test of clone_nodes function *)
+   (* test of add_arc function *)
    let cgr = add_arc graph 2 0 20 in
    (* assert same set of nodes *)
    assert (node_exists cgr 0);
    assert (node_exists cgr 1);
    assert (node_exists cgr 2);
+   (* assert added arc *)
    assert ((out_arcs cgr 0) = [(1,5)]);
    assert ((out_arcs cgr 1) = [(2,10)]);
    assert ((out_arcs cgr 2) = [(0,20)]);
@@ -53,7 +56,5 @@ let test_add_arc () =
 
 let tests = [test_clone; test_gmap; test_add_arc]
 
-let () = 
-   Printf.printf "==== UNIT TEST - TOOLS MODULE ====\n";
-   List.iter (fun f -> f ()) tests
+let () = List.iter (fun f -> f ()) tests
 
