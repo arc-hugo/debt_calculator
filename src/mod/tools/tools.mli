@@ -10,4 +10,3 @@ val gmap: 'a graph -> ('a -> 'b) -> 'b graph
 (* Add value to an arc between two ids.
  * If the arc doesn't exist, it is created. *)
 val add_arc: int graph -> id -> id -> int -> int graph
-
