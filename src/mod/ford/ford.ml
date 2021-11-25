@@ -27,53 +27,56 @@ let max_flow (gr: flow graph) (id1: id) (id2: id) =
       | Some f -> Some f.max
       | None -> None
 
-let new_flow_graph (gr: int graph) = gmap gr (fun v -> {current=0; max=v})
+let rec visit_mem (n1: id) (n2: id) = function
+   | [] -> false
+   | (n,_)::t -> if (n1 = n) || (n2 = n) then true else visit_mem n1 n2 t
 
-let rec constr_path (gr: flow graph) = function
+let destack (t: id) (visit: (id * int) list) =
+   match (visit = []) || (visit_mem t t visit) with
+      | true -> visit
+      | false -> List.tl visit
+
+let valid_succ (visit: (id * int) list) ((n2,f): id * int) = not(visit_mem n2 n2 visit) && f > 0
+
+let rec dfs (gr: int graph) (s: id) (t: id) (f: int) (visit: (id * int) list) =
+   match (visit_mem s t visit) with
+      | true -> visit
+      | false -> match List.filter (valid_succ visit) (out_arcs gr s) with
+         | [] -> if s = t then ((s,f)::visit) else visit
+         | succ -> destack t (List.fold_left (fun visit (next,f) -> dfs gr next t f visit) ((s,f)::visit) succ)
+
+let rec constr_path (gr: int graph) = function
    | [] | _::[] -> []
-   | s::t::rest -> match (find_arc gr s t) with
-      | Some f -> (s,t,f)::(constr_path gr (t::rest))
-      | None -> raise (FordFulkerson_exception "error find arc")
+   | (s,_)::(t,f)::rest -> (s,t,f)::(constr_path gr ((t,f)::rest))
 
-let rec dfs (gr: flow graph) (s: id) (t: id) (visit: id list) =
-   if (List.mem s visit) || (List.mem t visit)
-   then visit
-   else
-      let succ = e_fold gr 
-         (fun l n1 n2 f -> if (n1 = s) && not(List.mem n2 visit) && (f.max - f.current) > 0 then n2::l else l)
-         []
-      in
-      List.fold_left (fun visit suiv -> dfs gr suiv t visit) (s::visit) succ
+let find_path (gr: int graph) (s: id) (t: id) =
+   match node_exists gr s && node_exists gr t with
+      | true -> constr_path gr (List.rev(dfs gr s t 0 []))
+      | false -> raise (FordFulkerson_exception "find_path: start or target not found")
 
-let find_path (gr: flow graph) (s: id) (t: id) =
-   if (not(node_exists gr s)) || (not(node_exists gr t))
-   then raise (FordFulkerson_exception "start or target not found")
-   else 
-      let path = List.rev(dfs gr s t []) in
-      constr_path gr path
-
-let rec min = function
+let rec min (gr: int graph) = function
    | [] -> Int.max_int
-   | (_,_,f)::t -> let v1 = min t and v2 = (f.max - f.current) in
-      if v1 < v2 then v1 else v2
+   | (_,_,f)::t -> let sub = (min gr t) in
+      if f >= sub then sub else f
 
-let ford_fulkerson (gr: flow graph) (s: id) (t: id) =
-   let rec aux (gr: flow graph) (s: id) (t: id) =
-      let path = find_path gr s t in
-      if not(path = []) then
-         let m = min path in
-         let ngr = e_fold gr 
-            (fun ngr i1 i2 f ->
-               if List.mem (i1,i2,f) path
-               then new_arc ngr i1 i2 {f with current=f.current+m}
-               else new_arc ngr i1 i2 f
-            )
-            (clone_nodes gr)
-         in
-         aux ngr s t
-      else
-         gr
+let rec update_flow (gr: int graph) (m: int) = function
+      | [] -> gr
+      | (i1,i2,_)::t -> add_arc (add_arc (update_flow gr m t) i1 i2 (-m)) i2 i1 m
+
+let result_graph (ogr: int graph) (fgr: int graph) =
+   e_fold ogr (fun rgr i1 i2 m -> 
+      match (find_arc fgr i1 i2) with
+         | Some f -> new_arc rgr i1 i2 {current=m-f;max=m}
+         | None -> raise (FordFulkerson_exception "result_graph: arc not found")
+   )
+   (clone_nodes ogr)
+
+let ford_fulkerson (gr: int graph) (s: id) (t: id) =
+   let rec aux (gr: int graph) (s: id) (t: id) =
+      match (find_path gr s t) with
+         | [] -> gr
+         | path -> aux (update_flow gr (min gr path) path) s t
    in
    (*Init flow*)
-   let igr = gmap gr (fun f -> { f with current = 0 }) in
-   aux igr s t
+   let fgr = aux gr s t in
+   result_graph gr fgr

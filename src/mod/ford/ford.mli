@@ -9,10 +9,6 @@ type flow
 exception Flow_exception of string
 exception FordFulkerson_exception of string
 
-(**************  CONSTRUCTOR  **************)
-(* Create a flow graph from a int graph. *)
-val new_flow_graph : int graph -> flow graph
-
 (**************  GETTERS  **************)
 (* Return current flow of an arc between id1 and id2.
  * Return None if the arc does not exist.
@@ -26,4 +22,4 @@ val max_flow : flow graph -> id -> id -> int option
 (**************  ALGORITHM  **************)
 (* Apply Ford-Fulkerson algorithm to a glow graph between a start and a target nodes.
  * @raise FordFulkerson_exception if start or target not found. *)
-val ford_fulkerson : flow graph -> id -> id -> flow graph
+val ford_fulkerson : int graph -> id -> id -> flow graph
