@@ -1,0 +1,7 @@
+(test
+  (name debt)
+  (libraries graph ford debt))
+
+(alias
+  (name runtest)
+  (deps debt1))
