@@ -9,6 +9,9 @@ type flow = {
    max: int
 }
 
+let string_of_flow (f: flow) =
+   string_of_int(f.current)^"/"^string_of_int(f.max)
+
 (* sub-function for max_flow and current_flow. *)
 let get_flow (gr: flow graph) (id1: id) (id2: id) =
    try

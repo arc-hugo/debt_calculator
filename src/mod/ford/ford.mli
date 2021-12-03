@@ -10,10 +10,15 @@ exception Flow_exception of string
 exception FordFulkerson_exception of string
 
 (**************  GETTERS  **************)
+
+(* Return the string representation of a flow. *)
+val string_of_flow : flow -> string
+
 (* Return current flow of an arc between id1 and id2.
  * Return None if the arc does not exist.
  * @raise Flow_exception id id1 is unknown. *)
 val current_flow : flow graph -> id -> id -> int option
+
 (* Return max flow of an arc between id1 and id2.
  * Return None if the arc does not exist.
  * @raise Flow_exception id id1 is unknown. *)
