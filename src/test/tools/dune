@@ -1,0 +1,3 @@
+(test
+    (name tools)
+    (libraries tools graph))

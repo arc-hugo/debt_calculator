@@ -1,0 +1,7 @@
+(test
+  (name ford)
+  (libraries graph gfile tools ford))
+
+(alias
+  (name runtest)
+  (deps ford1 ford2))
