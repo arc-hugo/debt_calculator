@@ -7,10 +7,9 @@
    ....
    NameN MoneyPaidN
    *)
-
 open Graph
 open Ford
 
 (**************  ALGORITHM  **************)
 (* Read the payment record and return a flow graph representing debt of each person. *)
-val debt string -> flow graph
+val debt : string -> (string list * flow graph)

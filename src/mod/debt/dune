@@ -1,3 +1,3 @@
 (library
-	(name debt)
-	(libraries tools ford graph))
+  (name debt)
+  (libraries tools ford graph str))

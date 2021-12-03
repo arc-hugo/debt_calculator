@@ -1,23 +1,25 @@
+open Str
 open Graph
 open Tools
 open Ford
 
 let from_file path graph =
-
    let infile = open_in path in
-
    let rec loop n names graph =
       try
          let line = input_line infile in
 
          (* Remove leading and trailing spaces. *)
-         let line = String.trim line in
+         let line = split (regexp "[ \t]+") line in
 
          let (n2, names2, graph2) =
-            (* Ignore empty lines *)
-            if line = "" then (n, names, graph)
-            (* Dept line*)
-            else (n+1, (line.[0],int_of_string(line.[1]))::names, new_node graph n)
+            match (line) with
+               (* Ignore empty or incorrect lines *)
+               | [] -> (n, names, graph)
+               | _::[] -> (n, names, graph)
+               | ""::_ -> (n, names, graph)
+               (* Dept line*)
+               | name::d::_ -> (n+1, (name,int_of_string(d))::names, new_node graph n)
          in
          loop n2 names2 graph2
       with End_of_file -> (List.rev(names),graph) (* Done *)
@@ -54,12 +56,13 @@ let debt path =
    let (names, graph) = from_file path graph in
 
    (* calculate individual debt *)
-   let m = (List.fold_left (fun s (_,d) -> s+d) names 0)/(List.length names) in
+   let m = (List.fold_left (fun s (_,d) -> s+d) 0 names)/(List.length names) in
    let indiv_debt = List.map (fun (n,d) -> (n,(d-m))) names in
 
    (* link to source or target *)
-   let graph = link_st graph 2 indiv_debt
+   let graph = link_st graph 2 indiv_debt in
 
    (* link all other nodes *)
-   link_all graph ((List.length names)+2) 2
+   let graph = link_all graph ((List.length names)+2) 2 in
 
+   (List.rev (List.fold_left (fun l (n,_) -> n::l) [] names), (ford_fulkerson graph 0 1))
