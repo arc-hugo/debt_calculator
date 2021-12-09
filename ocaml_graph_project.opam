@@ -5,9 +5,9 @@ synopsis: "Implementation project of an algorithm computing the max-flow of a fl
 description: ""
 maintainer: ["Hugo Barral <barral@insa-toulouse.fr>" "Aubry Dubois <a_dubois@insa-toulouse.fr>"]
 authors: ["Hugo Barral <barral@insa-toulouse.fr>" "Aubry Dubois <a_dubois@insa-toulouse.fr>"]
-homepage: "https://github.com/arc-hugo/ocaml_graph_project/"
-bug-reports: "https://github.com/arc-hugo/ocaml_graph_project/issues"
-dev-repo: "git+https://github.com/arc-hugo/ocaml_graph_project.git"
+homepage: "https://github.com/arc-hugo/debt_calculator/"
+bug-reports: "https://github.com/arc-hugo/debt_calculator/issues"
+dev-repo: "git+https://github.com/arc-hugo/debt_calculator.git"
 build: [
   ["dune" "build" "-p" name "-j" jobs]
 ]
