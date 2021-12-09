@@ -6,7 +6,7 @@ let (names,debt) = debt "./debt1"
 
 let test_debt () =
    (* assert same names *)
-   assert (names = ["John";"Kate";"Ann"]);
+   assert (names = Array.of_list(["John";"Kate";"Ann"]));
    
    (* assert same set of nodes *)
    assert (node_exists debt 0);
