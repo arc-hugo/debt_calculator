@@ -1,5 +1,8 @@
 opam-version: "2.0"
+name: "ocaml_graph_project"
 version: "0.1"
+synopsis: "Implementation project of an algorithm computing the max-flow of a flow graph"
+description: ""
 maintainer: ["Hugo Barral <barral@insa-toulouse.fr" "Aubry Dubois"]
 authors: ["Hugo Barral <barral@insa-toulouse.fr>" "Aubry Dubois"]
 homepage: "https://github.com/arc-hugo/ocaml_graph_project/"

@@ -12,4 +12,6 @@ open Ford
 
 (**************  ALGORITHM  **************)
 (* Read the payment record and return a flow graph representing debt of each person. *)
-val debt : string -> (string list * flow graph)
+val debt : string -> (string array * flow graph)
+(* Export *)
+val export_debt : string -> (string array * flow graph) -> unit

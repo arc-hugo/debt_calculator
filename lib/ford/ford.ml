@@ -84,7 +84,9 @@ let rec update_flow (gr: int graph) (m: int) = function
 let result_graph (ogr: int graph) (fgr: int graph) =
    e_fold ogr (fun rgr i1 i2 m -> 
       match (find_arc fgr i1 i2) with
-         | Some f -> new_arc rgr i1 i2 {current=m-f;max=m}
+         | Some f -> if m-f >= 0 
+            then new_arc rgr i1 i2 {current=m-f;max=m}
+            else new_arc rgr i1 i2 {current=m-f;max=m}
          | None -> raise (FordFulkerson_exception "result_graph: arc not found")
    )
    (clone_nodes ogr)

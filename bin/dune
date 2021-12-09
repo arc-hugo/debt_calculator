@@ -1,0 +1,3 @@
+(executable
+  (name debt)
+  (libraries tools graph ford debt gfile))
