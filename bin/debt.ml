@@ -1,7 +1,3 @@
-open Gfile
-(*open Graph*)
-open Tools
-open Ford
 open Debt
 
 let () =
@@ -18,6 +14,6 @@ let () =
     and outfile = Sys.argv.(2)
     in
 
-    let (_,debt) = debt infile in
+    let debt = debt infile in
 
-    export_debt outfile (gmap debt string_of_flow)
+    export_debt outfile debt

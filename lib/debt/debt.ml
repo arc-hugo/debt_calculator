@@ -65,20 +65,20 @@ let debt path =
    (* link all other nodes *)
    let graph = link_all graph ((List.length names)+2) 2 in
 
-   (List.rev (List.fold_left (fun l (n,_) -> n::l) [] names), (ford_fulkerson graph 0 1))
+   (Array.of_list(List.rev (List.fold_left (fun l (n,_) -> n::l) [] names)), (ford_fulkerson graph 0 1))
 
-let sort_neg ff names debt id1 id2 =
+let sort_negat ff names debt id1 id2 =
    match (current_flow debt id1 id2) with
       | Some c -> if c <= 0 
          then Printf.fprintf ff ""
          else Printf.fprintf ff "\"%s\" -> \"%s\" [label = \"%s\"];\n" names.((id1-2)) names.((id2-2)) (string_of_int(c)^"/inf")
       | None -> Printf.fprintf ff ""
 
-let chepa ff names debt id1 id2 lbl =
+let print_arcs ff names debt id1 id2 lbl =
    match (id1,id2,lbl) with
       | 0,n,f -> Printf.fprintf ff "\"source\" -> \"%s\" [label = \"%s\"];\n" names.((n-2)) (string_of_flow f)
       | n,1,f -> Printf.fprintf ff "\"%s\" -> \"target\" [label = \"%s\"];\n" names.((n-2)) (string_of_flow f)
-      | n1,n2,_ -> sort_neg ff names debt n1 n2
+      | n1,n2,_ -> sort_negat ff names debt n1 n2
 
 
 let export_debt (path: string) ((names,debt): (string array * flow graph)) =
@@ -87,10 +87,10 @@ let export_debt (path: string) ((names,debt): (string array * flow graph)) =
   let ff = open_out path in
 
   (* Write in this file. *)
-  Printf.fprintf ff "digraph diagram_out{\n   rankdir=LR;\n   size=\"8,5\"\n   node [shape = circle];\n   " ;
+  Printf.fprintf ff "digraph diagram_out{\n   rankdir=LR;\n   size=\"8,5\"\n   node [shape = circle];\n" ;
 
   (* Write all arcs *)
-  e_iter debt (chepa ff names debt);
+  e_iter debt (print_arcs ff names debt);
 
   Printf.fprintf ff "\n}" ;
   
