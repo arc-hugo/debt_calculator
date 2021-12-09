@@ -12,7 +12,7 @@ Implementation project of an algorithm computing the max-flow of a flow graph an
 ```bash
 git clone https://github.com/arc-hugo/debt_calculator/
 cd debt_calculator
-dune install
+dune build
 ```
 ### Test
 ```bash
