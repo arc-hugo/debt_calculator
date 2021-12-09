@@ -1,10 +1,10 @@
 opam-version: "2.0"
-name: "ocaml_graph_project"
-version: "0.1"
-synopsis: "Implementation project of an algorithm computing the max-flow of a flow graph"
+name: "debt_calculator"
+version: "1.0"
+synopsis: "Implementation project of an algorithm computing the max-flow of a flow graph for a debt calculator app"
 description: ""
-maintainer: ["Hugo Barral <barral@insa-toulouse.fr" "Aubry Dubois"]
-authors: ["Hugo Barral <barral@insa-toulouse.fr>" "Aubry Dubois"]
+maintainer: ["Hugo Barral <barral@insa-toulouse.fr>" "Aubry Dubois <a_dubois@insa-toulouse.fr>"]
+authors: ["Hugo Barral <barral@insa-toulouse.fr>" "Aubry Dubois <a_dubois@insa-toulouse.fr>"]
 homepage: "https://github.com/arc-hugo/ocaml_graph_project/"
 bug-reports: "https://github.com/arc-hugo/ocaml_graph_project/issues"
 dev-repo: "git+https://github.com/arc-hugo/ocaml_graph_project.git"
