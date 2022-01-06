@@ -1,7 +1,7 @@
 (* Set of tools used with the Graph module *)
 open Graph
 
-(**************  METHODES  **************)
+(**************  METHODS  **************)
 
 (* Returns a new graph having the same nodes but no arcs *)
 val clone_nodes: 'a graph -> 'b graph
