@@ -10,7 +10,7 @@
 open Graph
 open Ford
 
-(**************  ALGORITHM  **************)
+(**************  ALGORITHMS  **************)
 (* Read the payment record and return a flow graph representing debt of each person and an array of their names. *)
 val debt : string -> (string array * flow graph)
 (* Export results from the debt function to a given file in DOT language.
