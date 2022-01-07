@@ -11,7 +11,8 @@ open Graph
 open Ford
 
 (**************  ALGORITHM  **************)
-(* Read the payment record and return a flow graph representing debt of each person. *)
+(* Read the payment record and return a flow graph representing debt of each person and an array of their names. *)
 val debt : string -> (string array * flow graph)
-(* Export *)
+(* Export results from the debt function to a given file in DOT language.
+   See https://graphviz.org/doc/info/lang.html *)
 val export_debt : string -> (string array * flow graph) -> unit

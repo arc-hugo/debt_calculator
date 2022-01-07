@@ -1,14 +1,19 @@
 open Graph
 open Tools
 
+(* exception raised by flow getters *)
 exception Flow_exception of string
+
+(* exception raised by Ford Fulkerson algorithm *)
 exception FordFulkerson_exception of string
 
+(* record for flow results *)
 type flow = {
    current: int;
    max: int
 }
 
+(* string respresentation of a flow *)
 let string_of_flow (f: flow) =
    string_of_int(f.current)^"/"^string_of_int(f.max)
 
@@ -23,14 +28,14 @@ let get_flow (gr: flow graph) (id1: id) (id2: id) =
       (* flow exception if id1 doesn't exist. *)
       Graph_error s -> raise (Flow_exception s)
 
+(* return current flow from get_flow result. *)
 let current_flow (gr: flow graph) (id1: id) (id2: id) =
-   (* return current flow from get_flow result. *)
    match (get_flow gr id1 id2) with
       | Some f -> Some f.current
       | None -> None
 
+(* return current flow from get_flow result. *)
 let max_flow (gr: flow graph) (id1: id) (id2: id) =
-   (* return current flow from get_flow result. *)
    match (get_flow gr id1 id2) with
       | Some f -> Some f.max
       | None -> None
