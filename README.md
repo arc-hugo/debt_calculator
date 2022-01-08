@@ -31,7 +31,15 @@ NameN MoneyPaidN
 ```
 Resulting output file will be in [DOT language](https://www.graphviz.org/doc/info/lang.html).  
 It can then be converted in an image by the [dot layout engine](https://www.graphviz.org/docs/layouts/dot/) or an equivalent.
-
+### Example
+As an example, you can pick the [debt record](graphs/debt1) in graphs folder.  
+```
+John 40
+Kate 10
+Ann 10
+```
+The resulting image will be this :  
+![debt graph result](./graphs/debt1.svg)
 
 ## Maintainers
 - [Hugo Barral](https://github.com/arc-hugo/)
