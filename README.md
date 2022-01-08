@@ -1,6 +1,7 @@
 # OCaml Graph Project : Debt calculator
 
-Implementation project of an algorithm computing the max-flow of a flow graph and apply it in a debt calculator app.
+Implementation project of an algorithm computing the max-flow of a flow graph and apply it in a debt calculator app.  
+Our application behavior is based on [this article](https://hackernoon.com/max-flow-algorithm-in-real-life-551ebd781b25).
 
 ## Requierements
 - [opam](https://opam.ocaml.org/) package manager to install ocaml
