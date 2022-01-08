@@ -1,5 +1,6 @@
 open Debt
 
+(* Read a debt record file given by an user and export an output Graphviz file of a resulting flow graph. *)
 let () =
    if Array.length Sys.argv <> 3 then
       begin

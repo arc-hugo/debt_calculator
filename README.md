@@ -22,6 +22,17 @@ dune test -f
 ```bash
 dune exec bin/debt.exe infile outfile
 ```
+Given infile need to follow this format.
+```
+Name1 MoneyPaid1\n
+Name2 MoneyPaid2\n
+....
+NameN MoneyPaidN
+```
+Resulting output file will be in [DOT language](https://www.graphviz.org/doc/info/lang.html).  
+It can then be converted in an image by the [dot layout engine](https://www.graphviz.org/docs/layouts/dot/) or an equivalent.
+
+
 ## Maintainers
 - [Hugo Barral](https://github.com/arc-hugo/)
 - [Aubry Dubois](https://github.com/adubois31/) 
